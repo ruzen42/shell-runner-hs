@@ -21,6 +21,8 @@ dependencies:
 - servant-server
 - wai
 - warp
+- process
+- text
 
 ghc-options:
 - -Wall
