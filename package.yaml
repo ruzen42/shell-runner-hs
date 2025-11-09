@@ -4,7 +4,7 @@ github:              "ruzen42/shell-runner"
 license:             BSD-3-Clause
 author:              "Jaroslav Mihajlenko"
 maintainer:          "malledeferlive@gmail.com"
-copyright:           "GPLv3"
+copyright:           BSD-3-Clause
 
 extra-source-files:
 - README.md
