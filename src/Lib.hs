@@ -12,10 +12,10 @@ import System.Process
 import System.Exit
 import Data.Text (Text, pack)
 import Servant
-import Network.Wai
 import Network.Wai.Handler.Warp
 import GHC.Generics
 import Data.Aeson
+import GHC.Conc (setNumCapabilities)
 
 data CommandRequest = CommandRequest
   { command :: String
@@ -32,7 +32,7 @@ data CommandResponse = CommandResponse
 instance ToJSON CommandResponse
 
 type API =
-       "run" :> ReqBody '[JSON] CommandRequest
+       "api" :> ReqBody '[JSON] CommandRequest
              :> Post '[JSON] CommandResponse
 
 server :: Server API
@@ -52,14 +52,15 @@ runCommand (CommandRequest cmd) = do
             ExitFailure n -> n
         }
 
-
 api :: Proxy API
 api = Proxy
 
 app :: Application
 app = serve api server
 
-startApp :: Int -> IO ()
-startApp port = do
+startApp :: Int -> Int -> IO ()
+startApp port procs = do
+  setNumCapabilities procs
+  putStrLn $ "Using " ++ show procs ++ " capabilities"
   putStrLn $ "Running on http://localhost:" ++ show port
   run port app
