@@ -10,18 +10,16 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
-        haskell = pkgs.haskellPackages;
-        ghc = haskell.ghc8107;  # GHC 9.10.2
-        hsDeps = haskell.ghcWithPackages (p: with p; [ servant servant-server warp aeson text bytestring process ]);
       in
       {
         devShell = pkgs.mkShell {
-          buildInputs = [
+          buildInputs = with pkgs; [
+            cabal-install
+            git
+            zlib
+            pkg-config
             ghc
-            pkgs.cabal-install
-            pkgs.git
-            pkgs.zlib
-            pkgs.pkg-config
+            stack
           ];
         };
 
