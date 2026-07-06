@@ -25,7 +25,7 @@
           ];
         };
 
-        packages.shell-runner = pkgs.haskellPackages.callCabal2nix "shell-runner" ./. {};
+        packages.default = pkgs.haskellPackages.callCabal2nix "shell-runner" ./. {};
       });
 }
 
