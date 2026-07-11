@@ -29,7 +29,5 @@ WORKDIR /app
 
 COPY --from=build /app/.local/bin/shell-runner-exe /app/shell-runner
 
-ENV PORT=8081
-
-EXPOSE 8081
-CMD ["/app/shell-runner"]
+EXPOSE 8080
+CMD ["/app/shell-runner" "8080"]
